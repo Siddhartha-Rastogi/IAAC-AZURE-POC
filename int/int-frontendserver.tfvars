@@ -10,7 +10,7 @@ variable "location" {
 
 variable "virtualMachineName" {
   description = "VM name referenced also in storage-related names."
-  default     = "AZURE-POC-TF"
+  default     = "AZURE-POC-TF-int-frontend"
 }
 
 variable "virtualMachineSize" {
@@ -30,12 +30,17 @@ variable "virtualNetworkName" {
 
 variable "networkInterfaceName" {
   description = "Name of network interface resource."
-  default     = "azure-poc-tf-nic"
+  default     = "azure-poc-tf-nic-int-frontend"
 }
 
 variable "networkSecurityGroupName" {
   description = "Name for the network security group resource."
-  default     = "AZURE-POC-TF-nsg"
+  default     = "AZURE-POC-TF-nsg-int-frontend"
+}
+
+variable "inboundPortNumber" {
+  description = "Port No. which will be available to access application on server."
+  default     = "80"
 }
 
 variable "adminPassword" {
@@ -45,22 +50,22 @@ variable "adminPassword" {
 
 variable "addressPrefix" {
   description = "The address space that is used by the virtual network."
-  default     = "12.0.0.0/24"
+  default     = "10.1.0.0/20"
 }
 
 variable "subnetName" {
   description = "Subnet resource name."
-  default     = "default"
+  default     = "int-frontend-subnet"
 }
 
 variable "subnetPrefix" {
-  description = "The address prefix to use for the subnet."
-  default     = "12.0.0.0/24"
+  description = "The address prefix to use for the subnet considering 16 servers in the subnet."
+  default     = "10.1.2.0/28"
 }
 
 variable "publicIpAddressName" {
   description = "The name of public ip resource."
-  default     = "AZURE-POC-TF-ip"
+  default     = "AZURE-POC-TF-ip-INT-FrontEnd"
 }
 
 variable "publicIpAddressType" {
@@ -68,6 +73,21 @@ variable "publicIpAddressType" {
 }
 
 variable "OsImageName" {
-  description = "OS Image which as java & server installed"  
+  description = "OS Image which as java & Nginx server installed"  
   default     = "centos-golden-image"
+}
+
+variable "storageAccountName" {
+  description = "Storage Account Name which has been created on Azure"  
+  default     = "tfazurestorageaccount"
+}
+
+variable "containerName" {
+  description = "Container name within Azure Storage Account on Azure"  
+  default     = "terraformstate-int-frontend"
+}
+
+variable "tfbackendkey" {
+  description = "Name of tfState File within Container of Azure Storage Account on Azure"  
+  default     = "vm.terraform.tfstate"
 }
